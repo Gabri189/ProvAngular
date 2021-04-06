@@ -6,12 +6,19 @@
     <div id="bottom">
       <table id="list">
         <tr>
-          <td><input type="checkbox"></td>
           <td>ID</td>
-          <td>Name</td>
+          <td>First Name</td>
+          <td>Last Name</td>
           <td>Email</td>
           <td>Phone</td>
           <td>Action</td>
+        </tr>
+        <tr *ngFor="let e of array">
+          <td>{{e.employeeId}}</td>
+          <td>{{e.firstName}}</td>
+          <td>{{e.lastName}}</td>
+          <td>{{e.email}}</td>
+          <td>{{e.phone}}</td>
         </tr>
       </table>
     </div>
