@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Employee } from './employeeInterface';
 import { GetEmployeesService } from "../get-employees.service";
+import { Employee } from './employeeInterface';
 
 @Component({
     selector: 'app-tabella',
@@ -10,36 +10,38 @@ import { GetEmployeesService } from "../get-employees.service";
 
 export class TabellaComponent
 {
-    ges : GetEmployeesService;
-    array : Employee[];
+    ges : GetEmployeesService; //var del tipo della classe passata tramite import { GetEmployeesService } from "../get-employees.service";
+    array : Employee[]; //array di impiegati (import { Employee } from './employeeInterface';)
+    idCanc: number[] = []; //array per memorizzare temporaneamente gli ID degli impiegati che si vogliono modificare/cancellare
 
     constructor(ges : GetEmployeesService) 
     {
         this.ges = ges;
         this.array = [];
-
-        this.loadEmployees();
+        this.load();
     }
 
-    prompt(message : string) : any
+    load() : void
     {
-        return window.prompt(message);
-    }
-
-    loadEmployees() : void
-    {
-        this.ges.getData("http://localhost:8080/api/tutorial/1.0/employees")
+        this.ges.getData("http://localhost:4200/api/tutorial/1.0/employees") //metodo che carica dati tramite metodo GET alla url delle API
             .subscribe(data => this.array = data);
     }
 
-    addNewEmployee(firstName : string, lastName : string, email : string, phone : string) : void
+    add(firstName : string, lastName : string, email : string, phone : string) : void
     {
-        let emp : Employee = {
+        let emp : Employee = { //variabile temporanea (type let) di tipo Employee con la quale inserisco i dati del nuovo impiegato
 			      employeeId: Math.floor(Math.random() * 1000000),
 			      firstName: firstName,
 			      lastName: lastName,
 			      email: email,
 			      phone: phone
-		    };
+		};
+        this.ges.postData("http://localhost:4200/api/tutorial/1.0/employees", emp) //metodo che inserisce nuovi dati con metodo POST
+            .subscribe(data => this.load());
+    }
+
+    message(message : string) : any //metodo richiamato da tag in html per aggiungere un parametro
+    {
+        return window.prompt(message);
     }
 }

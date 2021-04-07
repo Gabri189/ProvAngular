@@ -1,7 +1,7 @@
 <div id="back">
     <div id="top">
       <label>Manage <b>Employees</b></label>
-      <button id="add">Add New Employee</button>
+      <button id="add" (click)="add(message('firstName'), message('lastName'), message('email'), message('phone'))">Add New Employee</button>
     </div>
     <div id="bottom">
       <table id="list">

@@ -18,11 +18,20 @@ export class GetEmployeesService
           .pipe(
             retry(1),
             catchError(this.handleError)
-          );
+      );
 	}
 
   public handleError(handleError: any): import("rxjs").OperatorFunction<Employee[], any> 
   {
       throw new Error('Method not implemented.');
   }
+
+  postData(apiUrl : string, body : any) : Observable<Employee[]>
+	{
+		  return this.http.post<Employee[]>(apiUrl, body)
+			    .pipe(
+				    retry(1),
+				    catchError(this.handleError)
+			);
+	}
 }
