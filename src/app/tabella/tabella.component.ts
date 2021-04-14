@@ -40,6 +40,26 @@ export class TabellaComponent
             .subscribe(data => this.load());
     }
 
+    remove(id : number) : void
+    {
+        this.ges.deleteData("http://localhost:4200/api/tutorial/1.0/employees/" + id)
+            .subscribe(data => this.load());
+    }
+
+    modify(id : number, firstName : string, lastName : string, email : string, phone : string) : void
+    {
+        let emp : Employee = {
+			employeeId: id,
+			firstName: firstName,
+			lastName: lastName,
+			email: email,
+			phone: phone
+		};
+
+        this.ges.putData("http://localhost:4200/api/tutorial/1.0/employees/" + id, emp)
+            .subscribe(data => this.load());
+    }
+
     message(message : string) : any //metodo richiamato da tag in html per aggiungere un parametro
     {
         return window.prompt(message);

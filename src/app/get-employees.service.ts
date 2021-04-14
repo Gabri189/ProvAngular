@@ -10,28 +10,46 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 export class GetEmployeesService 
 {
-	constructor(private http : HttpClient) {}
+	constructor(private http : HttpClient) {} //costruttore della classe GetEmployeesService
 	
-	getData(apiUrl : string) : Observable <Employee[]>
+	getData(apiUrl : string) : Observable <Employee[]> //Metodo GET con parametri richiesti da API (per vedere gli impiegati)
 	{
-      return this.http.get<Employee[]>(apiUrl)
-          .pipe(
-            retry(1),
-            catchError(this.handleError)
-      );
+    	return this.http.get<Employee[]>(apiUrl)
+        .pipe(
+        	retry(1),
+        	catchError(this.handleError)
+      	);
 	}
 
-  public handleError(handleError: any): import("rxjs").OperatorFunction<Employee[], any> 
-  {
-      throw new Error('Method not implemented.');
-  }
-
-  postData(apiUrl : string, body : any) : Observable<Employee[]>
+  	postData(apiUrl : string, body : any) : Observable<Employee[]> //Metodo POST con parametri richiesti da API (per aggiungere impiegati)
 	{
-		  return this.http.post<Employee[]>(apiUrl, body)
-			    .pipe(
-				    retry(1),
-				    catchError(this.handleError)
-			);
+		return this.http.post<Employee[]>(apiUrl, body)
+		.pipe(
+			retry(1),
+		    catchError(this.handleError)
+		);
 	}
+
+	deleteData(apiUrl : string) : Observable<Employee[]> //Metodo DELETE con parametri richiesti da API (per cancellare impiegati)
+	{
+		return this.http.delete<Employee[]>(apiUrl)
+		.pipe(
+			retry(1),
+			catchError(this.handleError)
+		);
+	}
+
+	putData(apiUrl : string, body : any) : Observable<Employee[]> //Metodo DELETE con parametri richiesti da API (per cancellare impiegati)
+	{
+		return this.http.put<Employee[]>(apiUrl, body)
+		.pipe(
+			retry(1),
+			catchError(this.handleError)
+		);
+	}
+
+	public handleError(handleError: any): import("rxjs").OperatorFunction<Employee[], any> //Nel caso di errore
+  	{
+    	throw new Error('Method not implemented.');
+  	}
 }
