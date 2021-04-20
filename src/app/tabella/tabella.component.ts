@@ -10,27 +10,37 @@ import { Employee } from './employeeInterface';
 
 export class TabellaComponent
 {
+    generaID: number;
     ges : GetEmployeesService; //var del tipo della classe passata tramite import { GetEmployeesService } from "../get-employees.service";
     array : Employee[]; //array di impiegati (import { Employee } from './employeeInterface';)
     idCanc: number[] = []; //array per memorizzare temporaneamente gli ID degli impiegati che si vogliono modificare/cancellare
 
     constructor(ges : GetEmployeesService) 
     {
+        this.generaID = 0;
         this.ges = ges;
         this.array = [];
         this.load();
+        this.removeStandardValues();
     }
 
-    load() : void
+    load() : void //metodo che carica dati tramite metodo GET alla url delle API
     {
-        this.ges.getData("http://localhost:4200/api/tutorial/1.0/employees") //metodo che carica dati tramite metodo GET alla url delle API
+        this.ges.getData("http://localhost:4200/api/tutorial/1.0/employees")
             .subscribe(data => this.array = data);
+    }
+
+    removeStandardValues() : void //metodo che rimuove i valori standard del database (semplicemente per bellezza)
+    {
+        this.remove(1);
+        this.remove(2);
+        this.remove(3);
     }
 
     add(firstName : string, lastName : string, email : string, phone : string) : void
     {
         let emp : Employee = { //variabile temporanea (type let) di tipo Employee con la quale inserisco i dati del nuovo impiegato
-			      employeeId: Math.floor(Math.random() * 1000000),
+			      employeeId: this.createID(),
 			      firstName: firstName,
 			      lastName: lastName,
 			      email: email,
@@ -63,5 +73,10 @@ export class TabellaComponent
     message(message : string) : any //metodo richiamato da tag in html per aggiungere un parametro
     {
         return window.prompt(message);
+    }
+
+    private createID() : number 
+    {
+        return this.generaID++;
     }
 }
