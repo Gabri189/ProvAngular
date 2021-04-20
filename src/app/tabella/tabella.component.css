@@ -37,15 +37,19 @@
   }
   
   #remove {
-    size: auto;
-    width: 40px;
-    height: 35px;
+    position: absolute;
+    left: 82%;
+    border-radius: 10px;
+    background-color: red;
+    color: white;
   }
   
   #modify {
-    size: auto;
-    width: 40px;
-    height: 35px;
+    position: absolute;
+    left: 87%;
+    border-radius: 10px;
+    background-color: orange;
+    color: white;
   }
   
   #confirm {

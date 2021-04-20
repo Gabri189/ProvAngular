@@ -19,6 +19,10 @@
           <td>{{e.lastName}}</td>
           <td>{{e.email}}</td>
           <td>{{e.phone}}</td>
+          <td>
+            <button id="remove" (click)="remove(e.employeeId)">Remove</button>
+            <button id="modify" (click)="modify(e.employeeId, message('firstName'), message('lastName'), message('email'), message('phone'))">Modify</button>
+          </td>
         </tr>
       </table>
     </div>
